@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="vendors/css/bootstrap.css" rel="stylesheet" />
+    <link href="vendors/css/jquery.mobile-1.4.5.css" rel="stylesheet" />
+	<link href="vendors/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <title>Kritzinger Company Directory</title>
+</head>
+<body onload="getContact()">
+    <!-- start of "page_ContactDetails" PAGE -->
+    <div class="container">
+        <div id="page_ContactDetails" data-role="page">
+            <div data-role="header" data-position="fixed"class="pt-2">
+                <a href="./contact.html" data-rel="back" class="ui-btn ui-btn-left btn-icon-left icon-carat-l ui-btn-a">Back</a>
+                <h1>Kritzinger</h1>
+                <h2>Contact Details</h2>
+                <br /><hr /><br />
+                <a href="./editContact.html" class="ui-btn ui-btn-right icon-edit ui-btn-a">Edit</a>
+            </div>
+            <div class="content">
+                <h6>Personell number.</h6>
+                <p id="persNo"></p>
+                <h6>Surname.</h6>
+                <p id="surname"></p>
+                <h6>First Name.</h6>
+                <p id="firstName"></p>
+                <h6>Title.</h6>
+                <p id="title"></p>
+                <h6>Department.</h6>
+                <p class="hidden" id="departmentId"></p>
+                <p id="dept"></p>
+                <h6>Location.</h6>
+                <p class="hidden" id="locationId"></p>
+                <p id="location"></p>
+                <h6>Email.</h6>
+                <p id="email"></p>
+                <h6>Contact number.</h6>
+                <p id="contact"></p>
+            </div>
+        </div>
+    </div>
+    <!-- end of "page_ContactDetails" PAGE -->
+
+    <script src="vendors/js/jquery.js" type="text/javascript"></script>
+    <script src="vendors/js/bootstrap.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+
+</body>
+</html>
