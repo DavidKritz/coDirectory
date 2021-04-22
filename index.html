@@ -1,0 +1,660 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" />
+    <link href="vendors/css/bootstrap.css" rel="stylesheet" />
+    <link href="vendors/css/jquery.mobile-1.4.5.css" rel="stylesheet" />
+    <link href="vendors/css/bootstrap-select.css" rel="stylesheet" />
+    <link href="libs/css/style.css" rel="stylesheet" />
+    <title>Kritzinger Company Directory</title>
+</head>
+<body>
+    <!-- start of "page_home" PAGE -->
+    <div id="contacts"> 
+        <div id="container">
+            <div id="page_home" class="ninety">
+                <div class="row sticky-top">
+                    <div class="col">
+                        <div data-role="header" class="pt-2">
+                            <h1>Kritzinger</h1>
+                            <h2>Contacts</h2>
+                                <input class="ml-2 getContacts" id="searchC" type="text" placeholder="Search..." name="search">
+                                <button type="submit" id="getContacts">Go</button>
+                            <button type="button" class="btn ui-btn-right icon-plus mr-5 yellow mt-3" data-toggle="modal" data-target="#addContact">Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row content">
+                    <div class="col">
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Pers No</th>
+                                        <th>Surname</th>
+                                        <th>First Name</th>
+                                        <th>Department</th>
+                                        <th>City</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbRow3">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row footer">
+                    <div class="col">
+                        <div data-role="footer" class="inline-ft pt-2 pb-2">
+                            <a class="btn" href="#contacts">Contacts</a>
+                            <a class="btn" href="#locations">Locations</a>
+                            <a class="btn" href="#departments">Departments</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+        <div class="modal" id="addContact" role="dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header mh">
+                    <h4>Add Contact</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" method="POST" action="">
+                        <input type="hidden" name="_token" value="">
+                        <div class="form-group">
+                            <label class="control-label">Personnel Number</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_perNo" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Surname</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_surname" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">First Name</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_first">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Title</label>
+                            <div>
+                                <select name="input_title" id="input_title" class="form-control input-lg">
+                                    <option value="Mr" selected>Mr</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Team Leader">Team Leader</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="Senior Manager">Senior Manager</option>
+                                    <option value="Director">Director</option>
+                                    <option value="Managing Director">Managing Director</option>
+                                    <option value="Chairman">Chairman</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Department</label>
+                            <div id="tbForm">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Location</label>
+                            <div id="tbFormLoc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            <div>
+                                <input type="email" class="form-control input-lg" id="input_email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Contact No</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_contact">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btnCancel yellow" data-role="button" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                    <button class="btnEdit yellow" data-toggle="modal" href="#confirmSave">Save</button>
+                </div>
+
+                <div id="confirmSave" class="modal hide" tabindex="-1" data-focus-on="input:first">
+                    <div class="modal-content">
+                        <div class="modal-header mh">
+                            <h3>Save Contact</h3>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirm you wish to save the changes…</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btnCancel yellow" data-role="button" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                            <button class="btnEdit yellow addContact" id="ui-btn_EditContact" data-inline="true" data-role="button" data-theme="a" data-transition="flow">Save</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal hide" id="editContact" tabindex="-1" data-focus-on="input:first" >
+            <div class="modal-content">
+                <div class="modal-header mh">
+                    <h4>Modify/Delete Contact</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <form role="form" method="POST" action="">
+                        <div class="form-group">
+                            <label class="control-label">Personnel Number</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="perNo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Surname</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="surname" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">First Name</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="firstname">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Title</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="title" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Department</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="departmentId" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Location</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="locationId" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            <div>
+                                <input type="email" class="form-control input-lg" id="email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Contact No</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="contactNo">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btnEdit yellow" data-dismiss="modal">Cancel</button>
+                    <button class="btnEdit yellow" data-toggle="modal" href="#confirmEdit">Save</button>
+                    <button class="btnEdit yellow" data-toggle="modal" href="#confirmDelete">Delete</button>
+                </div>
+
+                <div id="confirmEdit" class="modal hide" tabindex="-1" data-focus-on="input:first">
+                    <div class="modal-content">
+                        <div class="modal-header mh">
+                            <h3>Edit Contact</h3>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirm you wish to save the changes…</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btnCancel yellow" data-role="button" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                            <button class="btnEdit yellow editContact" id="ui-btn_EditLocation" data-inline="true" data-role="button" data-theme="a" data-transition="flow">Save</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="confirmDelete" class="modal hide" tabindex="-1" data-focus-on="input:first">
+                    <div class="modal-content">
+
+                        <div class="modal-header mh">
+                            <h3>Edit Contact</h3>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirm you wish to delete the contact…</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btnCancel yellow" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                            <button class="btnEdit yellow delContact" id="ui-btn_EditLocation" data-inline="true" data-role="button" data-theme="a" data-transition="flow">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- end of "page_home" PAGE -->
+
+    <div id="locations">
+        <div id="container">
+            <div id="page_home" class="ninety">
+                <div class="row sticky-top">
+                    <div class="col">
+                        <div data-role="header" class="pt-2">
+                            <h1>Kritzinger</h1>
+                            <h2>Locations</h2>
+                            <div>
+                                <input class="ml-2" id="searchL" type="text" placeholder="Search..." name="search">
+                                <button type="submit" id="getLocations">Go</button>
+                            </div>
+                            <button type="button" class="btn ui-btn-right icon-plus mr-5 yellow mt-3" data-toggle="modal" data-target="#addLocation">Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row content">
+                    <div class="col">
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Country</th>
+                                        <th>ZipCode</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbRow1">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row footer">
+                    <div class="col">
+                        <div data-role="footer" class="inline-ft footer pt-2 pb-2">
+                            <a class="btn" href="#contacts">Contacts</a>
+                            <a class="btn" href="#locations">Locations</a>
+                            <a class="btn" href="#departments">Departments</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="addLocation" role="dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header mh">
+                    <h4>Add Location</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" method="POST" action="">
+                        <input type="hidden" name="_token" value="">
+                        <div class="form-group">
+                            <label class="control-label">Street Number</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_streetNo" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Street</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_street" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">City</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_city">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">State</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_state">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Country</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_country" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Zip Code</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_zipCode" value="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btnCancel yellow" data-role="button" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                    <button class="btnEdit yellow" data-toggle="modal" href="#confirmLocSave">Save</button>
+                </div>
+
+                <div id="confirmLocSave" class="modal hide" tabindex="-1" data-focus-on="input:first">
+                    <div class="modal-content">
+                        <div class="modal-header mh">
+                            <h3>Save Location</h3>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirm you wish to save the changes…</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btnCancel yellow" data-role="button" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                            <button class="btnEdit yellow addLoc" id="ui-btn_EditLocation" data-inline="true" data-role="button" data-theme="a" data-transition="flow">Save</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal hide" id="editLocation" tabindex="-1" data-focus-on="input:first">
+            <div class="modal-content">
+                <div class="modal-header mh">
+                    <h4>Modify/Delete Location</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <form role="form" method="POST" action="">
+                        <div class="form-group">
+                            <label class="control-label">Street Number</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="streetNo">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Street</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="street" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">City</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="city">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">State</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="state">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Country</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="country" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Zip Code</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="zipCode" value="">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btnEdit yellow" data-dismiss="modal">Cancel</button>
+                    <button class="btnEdit yellow" data-toggle="modal" href="#confirmLocEdit">Save</button>
+                    <button class="btnEdit yellow" data-toggle="modal" href="#confirmLocDelete">Delete</button>
+                </div>
+
+                <div id="confirmLocEdit" class="modal hide" tabindex="-1" data-focus-on="input:first">
+                    <div class="modal-content">
+                        <div class="modal-header mh">
+                            <h3>Edit Location</h3>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirm you wish to save the changes…</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btnCancel yellow" data-role="button" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                            <button class="btnEdit yellow editLoc" id="ui-btn_EditLocation" data-inline="true" data-role="button" data-theme="a" data-transition="flow">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="confirmLocDelete" class="modal hide" tabindex="-1" data-focus-on="input:first">
+                    <div class="modal-content">
+
+                        <div class="modal-header mh">
+                            <h3>Delete Location</h3>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirm you wish to delete the Location…</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btnCancel yellow" data-role="button" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                            <button class="btnEdit yellow delLoc" id="ui-btn_EditLocation" data-inline="true" data-role="button" data-theme="a" data-transition="flow">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="departments">
+        <div id="container">
+            <div id="page_home" class="ninety">
+                <div class="row sticky-top">
+                    <div class="col">
+                        <div data-role="header" class="pt-2">
+                            <h1>Kritzinger</h1>
+                            <h2>Departments</h2>
+                            <div>
+                                <input class="ml-2" id="searchD" type="text" placeholder="Search..." name="search">
+                                <button type="submit" id="getDepartments">Go</button>
+                            </div>
+                            <button type="button" class="btn ui-btn-right icon-plus mr-5 yellow mt-3" data-toggle="modal" data-target="#addDepartment">Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row content">
+                    <div class="col">
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Department</th>
+                                        <th>Cost Center</th>
+                                        <th>Billing Code</th>
+                                        <th>City</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbRow2">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row footer">
+                    <div class="col">
+                        <div data-role="footer" class="inline-ft footer pt-2 pb-2">
+                            <a class="btn" href="#contacts">Contacts</a>
+                            <a class="btn" href="#locations">Locations</a>
+                            <a class="btn" href="#departments">Departments</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="addDepartment" role="dialog">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header mh">
+                    <h4>Add Department</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" method="POST" action="">
+                        <input type="hidden" name="_token" value="">
+                        <div class="form-group">
+                            <label class="control-label">Department</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_dept" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Cost Center</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="input_costC" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Billing Code</label>
+                            <div>
+                                <input type="email" class="form-control input-lg" id="input_billC">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Location</label>
+                            <div id="tbFormDLoc">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btnCancel yellow" data-role="button" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                    <button class="btnEdit yellow" data-toggle="modal" href="#confirmDeptSave">Save</button>
+                </div>
+
+                <div id="confirmDeptSave" class="modal hide" tabindex="-1" data-focus-on="input:first">
+                    <div class="modal-content">
+                        <div class="modal-header mh">
+                            <h3>Save Department</h3>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirm you wish to save the changes…</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btnCancel yellow" data-role="button" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                            <button class="btnEdit yellow addDept" id="ui-btn_EditDepartment" data-inline="true" data-role="button" data-theme="a" data-transition="flow">Save</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal hide" id="editDepartment" tabindex="-1" data-focus-on="input:first">
+            <div class="modal-content">
+                <div class="modal-header mh">
+                    <h4>Modify/Delete Department</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <form role="form" method="POST" action="">
+                        <div class="form-group">
+                            <label class="control-label">Department</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="dept">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Cost Center</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="costCenter" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Billing Code</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="billCode">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">City</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="cityy">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">City ID</label>
+                            <div>
+                                <input type="text" class="form-control input-lg" id="locationID">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btnEdit yellow" data-dismiss="modal">Cancel</button>
+                    <button class="btnEdit yellow" data-toggle="modal" href="#confirmDeptEdit">Save</button>
+                    <button class="btnEdit yellow" data-toggle="modal" href="#confirmDeptDelete">Delete</button>
+                </div>
+
+                <div id="confirmDeptEdit" class="modal hide" tabindex="-1" data-focus-on="input:first">
+                    <div class="modal-content">
+
+                        <div class="modal-header mh">
+                            <h3>Edit Department</h3>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirm you wish to save the changes…</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btnCancel yellow" data-role="button" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                            <button class="btnEdit yellow editDept" id="ui-btn_EditDepartment" data-inline="true" data-role="button" data-theme="a" data-transition="flow">Save</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="confirmDeptDelete" class="modal hide" tabindex="-1" data-focus-on="input:first">
+                    <div class="modal-content">
+
+                        <div class="modal-header mh">
+                            <h3>Delete Department</h3>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirm you wish to delete the Department…</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btnCancel yellow" data-role="button" data-inline="true" data-theme="a" data-dismiss="modal">Cancel</button>
+                            <button class="btnEdit yellow delDept" id="ui-btn_EditDepartment" data-inline="true" data-role="button" data-theme="a" data-transition="flow">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="vendors/js/jquery.js" type="text/javascript"></script>
+    <script src="vendors/js/bootstrap.js" type="text/javascript"></script>
+    <script src="libs/js/main.js" type="text/javascript"></script>
+
+</body>
+</html>
