@@ -8,13 +8,17 @@ var locID;
 var trValue;
 var $i
 var $lo
+document.location.hash = "#contacts";
+
 $(window).on('load', function () {
 	if ($('#preloader').length) {
 		$('#preloader').delay(100).fadeOut('slow', function () {
 			$(this).remove();
 		});
 	}
-	//getContacts();
+	getContacts();
+	getLocations();
+	getDepartments();
 });
 
 $(document).on('click', '#clickContact', function (e) {
@@ -44,6 +48,9 @@ $('#addContact').on('shown.bs.modal', function () {
 	getDeptDD();
 	getLocDD();
 });
+$('#addDepartment').on('shown.bs.modal', function () {
+	getLocDeptD();
+});
 
 function myPopupDel() {
 	var popup = document.getElementById("myPopupDel");
@@ -53,6 +60,7 @@ function myPopupEdit() {
 	var popup = document.getElementById("myPopupEdit");
 	popup.classList.toggle("show");
 }
+
 function getContacts() {
 	var contactOptions;
 	var $search = document.getElementById("searchC").value;
@@ -120,7 +128,8 @@ function getContact() {
 	});
 
 }
-function addContact() {
+$('.addContact').click( function (e) {
+	e.preventDefault();
 	$persoNo = document.getElementById("input_perNo").value; 
 	$firstName = document.getElementById("input_first").value; 
 	$lastName = document.getElementById("input_surname").value; 
@@ -129,6 +138,7 @@ function addContact() {
 	$contactNo = document.getElementById("input_contact").value; 
 	$departmentID = document.getElementById("input_dept").value; 
 	$locationID = document.getElementById("input_loc").value; 
+	console.log($locationID);
 
 	$.ajax({
 		url: "libs/php/addContact.php",
@@ -147,7 +157,7 @@ function addContact() {
 		},
 		success: function (result) {
 			if (result.status.name == "ok") {
-				window.location.href = './contact.html';
+				window.location.href = './index.html';
 				window.alert('Record created successfully.');
 			}
 
@@ -161,8 +171,11 @@ function addContact() {
 		}
 	});
 
-}
-function editContact() {
+})
+//function editContact() {
+
+$('.editContact').on('click', function (e) {
+	e.preventDefault();
 	console.log('in edit contact');
 	$id = localStorage.getItem("storageName");
 	console.log($id);
@@ -193,7 +206,7 @@ function editContact() {
 		},
 		success: function (result) {
 			console.log(result);
-			window.location.href = './contact.html';
+			window.location.href = './index.html';
 			window.alert('Record updated successfully.');
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -204,9 +217,9 @@ function editContact() {
 		}
 	});
 
-}
-
-function delContact() {
+})
+$('.delContact').on('click', function (e) {
+	e.preventDefault();
 	var $persNo = localStorage.getItem("storageName");
 	console.log('in delete');
 	console.log($persNo);
@@ -221,7 +234,7 @@ function delContact() {
 		},
 		success: function (result) {
 			console.log(result);
-			window.location.href = './contact.html';
+			window.location.href = './index.html#contacts';
 			window.alert('Record deleted successfully');
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -232,7 +245,7 @@ function delContact() {
 		}
 	});
 
-}
+})
 
 function getDepartments() {
 	var $search = document.getElementById("searchD").value;
@@ -308,7 +321,7 @@ function getDeptDD() {
 		type: 'POST',
 		dataType: 'json',
 		data: {
-			search: $search
+			searchD: $search
 
 		},
 		success: function (result) {
@@ -333,8 +346,8 @@ function getDeptDD() {
 	});
 }
 
-
-function editDept() {
+$('.editDept').on('click', function (e) {
+	e.preventDefault();
 	$id = localStorage.getItem("storageName");
 	$dept = document.getElementById("dept").value;
 	$costC = document.getElementById("costCenter").value;
@@ -355,7 +368,9 @@ function editDept() {
 		},
 		success: function (result) {
 			console.log(result);
-			window.location.href = './department.html';
+			$('#editDepartment').modal('toggle');
+			$('#confirmDeptEdit').modal('toggle');
+			window.location.href = './index.html#departments';
 			window.alert('Record updated successfully.');
 
 		},
@@ -367,9 +382,9 @@ function editDept() {
 		}
 	});
 
-}
-
-function delDept() {
+})
+$('.delDept').on('click', function (e) {
+	e.preventDefault();
 	$id = localStorage.getItem("storageName");
 	console.log('in dept del');
 	console.log($id);
@@ -384,12 +399,17 @@ function delDept() {
 		success: function (result) {
 			console.log(result);
 			if (result.status.code == "201") {
+				$('#editDepartment').modal('toggle');
+				$('#confirmDeptDelete').modal('toggle');
 				window.alert('Record cannot be deleted, linked to active account.');
-				window.location.href = './department.html';
+				window.location.href = './index.html#departments';
 			}
 			else if (result.status.code == '200') {
-				window.location.href = './department.html';
+				$('#editDepartment').modal('toggle');
+				$('#confirmDeptDelete').modal('toggle');
 				window.alert('Record deleted successfully');
+				window.location.href = './index.html#departments';
+
 				}
 	},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -400,12 +420,18 @@ function delDept() {
 		}
 	});
 
-}
-function addDept() {
+})
+$('.addDept').on('click', function (e) {
+	e.preventDefault();
 	$dept = document.getElementById("input_dept").value;
 	$costCenter = document.getElementById("input_costC").value;
 	$billCode = document.getElementById("input_billC").value;
-	$locationID = document.getElementById("input_deptLoc").value;
+	$locationID = document.getElementById("input_dept_loc").value; 
+	console.log($dept);
+	console.log($costCenter);
+	console.log($billCode);
+	console.log($locationID);
+
 
 	$.ajax({
 		url: "libs/php/addDept.php",
@@ -421,7 +447,9 @@ function addDept() {
 		success: function (result) {
 			console.log(result);
 			if (result.status.name == "ok") {
-				window.location.href = './department.html';
+				$('#addDepartment').modal('toggle');
+				$('#confirmDeptSave').modal('toggle');
+				window.location.href = './index.html#departments';
 				window.alert('Record created successfully.');
 			}
 
@@ -434,8 +462,7 @@ function addDept() {
 		}
 	});
 
-}
-
+})
 function getLocations() {
 	var $search = document.getElementById("searchL").value;
 	var tableData;
@@ -505,6 +532,7 @@ function getLocation() {
 function getLocDD() {
 	var $search = '';
 	var tableData;
+	console.log('in loc dropdown');
 	$.ajax({
 		url: "libs/php/getLocations.php",
 		type: 'POST',
@@ -532,10 +560,41 @@ function getLocDD() {
 		}
 	});
 }
+function getLocDeptD() {
+	var $search = '';
+	var tableData;
+	console.log('in loc dropdown');
+	$.ajax({
+		url: "libs/php/getLocations.php",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			searchL: $search
 
+		},
+		success: function (result) {
+			tableData += "<select name='input_dept_loc' id='input_dept_loc' class='form-control input-lg'>";
+			$('#tbFormDLoc').html(tableData);
 
-function editLoc() {
-	console.log('in edit contact');
+			$.each(result['data'], function (i, location) {
+				tableData += "<option value='" + location.id + "'>" + location.city + "</option>";
+				$('#tbFormDLoc').html(tableData);
+			});
+			tableData += "</select>";
+			$('#tbFormDLoc').html(tableData);
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			// your error code
+			console.log(errorThrown);
+			console.log(textStatus);
+			console.log(jqXHR);
+		}
+	});
+}
+
+$('.editLoc').on('click', function (e) {
+	e.preventDefault();
+	console.log('in edit location');
 	$id = localStorage.getItem("storageName");
 	$streetNo = document.getElementById("streetNo").value;
 	$street = document.getElementById("street").value;
@@ -561,7 +620,9 @@ function editLoc() {
 		},
 		success: function (result) {
 			console.log(result);
-			window.location.href = './location.html';
+			$('#editLocation').modal('toggle');
+			$('#confirmLocEdit').modal('toggle');
+			window.location.href = './index.html#locations';
 			window.alert('Record updated successfully.');
 
 		},
@@ -573,9 +634,9 @@ function editLoc() {
 		}
 	});
 
-}
-
-function delLoc() {
+})
+$('.delLoc').on('click', function (e) {
+	e.preventDefault();
 	$id = localStorage.getItem("storageName");
 	console.log('in delete');
 	console.log($id);
@@ -590,11 +651,15 @@ function delLoc() {
 		success: function (result) {
 			console.log(result);
 			if (result.status.code == "201") {
+				$('#editLocation').modal('toggle');
+				$('#confirmLocDelete').modal('toggle');
 				window.alert('Record cannot be deleted, linked to active account.');
-				window.location.href = './location.html';
+				window.location.href = './index.html#locations';
 			}
 			else if (result.status.code == '200') {
-				window.location.href = './location.html';
+				$('#editLocation').modal('toggle');
+				$('#confirmLocDelete').modal('toggle');
+				window.location.href = './index.html#locations';
 				window.alert('Record deleted successfully');
 			}
 		},
@@ -606,9 +671,10 @@ function delLoc() {
 		}
 	});
 
-}
-function addLoc() {
-
+})
+$('.addLoc').on('click', function (e) {
+	e.preventDefault();
+	console.log('in add loc');
 	$strNo = document.getElementById("input_streetNo").value;
 	$street = document.getElementById("input_street").value;
 	$city = document.getElementById("input_city").value;
@@ -633,7 +699,9 @@ function addLoc() {
 		success: function (result) {
 			console.log(result);
 			if (result.status.name == "ok") {
-				window.location.href = './location.html';
+				$('#addLocation').modal('toggle');
+				$('#confirmLocSave').modal('toggle');
+				window.location.href = './index.html#locations';
 				window.alert('Record created successfully.');
 			}
 
@@ -646,4 +714,4 @@ function addLoc() {
 		}
 	});
 
-}
+})
