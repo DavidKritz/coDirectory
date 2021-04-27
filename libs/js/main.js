@@ -139,6 +139,8 @@ $('.addContact').click( function (e) {
 	$departmentID = document.getElementById("input_dept").value; 
 	$locationID = document.getElementById("input_loc").value; 
 	console.log($locationID);
+	console.log($departmentID);
+	console.log($locationID);
 
 	$.ajax({
 		url: "libs/php/addContact.php",
@@ -313,7 +315,7 @@ function getDepartment() {
 }
 
 function getDeptDD() {
-	var tableData;
+	var tableData = '';
 	var $search = '';
 	console.log('in get dept dd');
 	$.ajax({
@@ -326,7 +328,7 @@ function getDeptDD() {
 		},
 		success: function (result) {
 			console.log(result);
-			tableData += "<select name='input_dept' id='input_dept' class='form-control input-lg'>";
+			tableData += "<select name='input_dep' id='input_dept' class='form-control input-lg'>";
 			$('#tbForm').html(tableData);
 
 			$.each(result['data'], function (i, department) {
@@ -531,7 +533,7 @@ function getLocation() {
 
 function getLocDD() {
 	var $search = '';
-	var tableData;
+	var tableData = '';
 	console.log('in loc dropdown');
 	$.ajax({
 		url: "libs/php/getLocations.php",
@@ -542,7 +544,7 @@ function getLocDD() {
 
 		},
 		success: function (result) {
-			tableData += "<select name='input_loc' id='input_loc' class='form-control input-lg'>";
+			tableData += "<select name='input_lo' id='input_loc' class='form-control input-lg'>";
 			$('#tbFormLoc').html(tableData);
 
 			$.each(result['data'], function (i, location) {
@@ -562,7 +564,7 @@ function getLocDD() {
 }
 function getLocDeptD() {
 	var $search = '';
-	var tableData;
+	var tableData = '';
 	console.log('in loc dropdown');
 	$.ajax({
 		url: "libs/php/getLocations.php",
