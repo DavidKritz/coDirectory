@@ -13,7 +13,7 @@
 </head>
 <body>
     <!-- start of "page_home" PAGE -->
-    <div id="contacts"> 
+    <div class="getContacts" id="contacts"> 
         <div id="container">
             <div id="page_home" class="ninety">
                 <div class="row sticky-top">
@@ -21,7 +21,7 @@
                         <div data-role="header" class="pt-2">
                             <h1>Kritzinger</h1>
                             <h2>Contacts</h2>
-                                <input class="ml-2 getContacts" id="searchC" type="text" placeholder="Search..." name="search">
+                                <input class="ml-2" id="searchC" type="text" placeholder="Search..." name="search">
                                 <button type="submit" id="getContacts">Go</button>
                             <button type="button" class="btn ui-btn-right icon-plus mr-5 yellow mt-3" data-toggle="modal" data-target="#addContact">Add</button>
                         </div>
@@ -87,10 +87,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Title</label>
+                            <label form="input_titl" class="control-label">Title</label>
                             <div>
                                 <select name="input_titl" id="input_title" class="form-control input-lg">
-                                    <option value="Mr" selected>Mr</option>
+                                    <option value="">-- Please select option --</option>
+                                    <option value="Mr">Mr</option>
                                     <option value="Mrs">Mrs</option>
                                     <option value="Miss">Miss</option>
                                     <option value="Team Leader">Team Leader</option>
@@ -103,12 +104,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="input_dept" class="control-label">Department</label>
+                            <label form="input_dept" class="control-label">Department</label>
                             <div id="tbForm">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="input_loc" class="control-label">Location</label>
+                            <label form="input_loc" class="control-label">Location</label>
                             <div id="tbFormLoc">
                             </div>
                         </div>
@@ -150,7 +151,7 @@
             </div>
         </div>
 
-        <div class="modal hide" id="editContact" tabindex="-1" data-focus-on="input:first" >
+        <div class="modal hide getContact" id="editContact" tabindex="-1" data-focus-on="input:first" >
             <div class="modal-content">
                 <div class="modal-header mh">
                     <h4>Modify/Delete Contact</h4>
@@ -179,21 +180,30 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Title</label>
+                            <label form="input_titl" class="control-label">Title</label>
                             <div>
-                                <input type="text" class="form-control input-lg" id="title" value="">
+                                <select name="input_titl" id="title" class="form-control input-lg">
+                                    <option value="">-- Please select option --</option>
+                                    <option value="Mr">Mr</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Team Leader">Team Leader</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="Senior Manager">Senior Manager</option>
+                                    <option value="Director">Director</option>
+                                    <option value="Managing Director">Managing Director</option>
+                                    <option value="Chairman">Chairman</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Department</label>
-                            <div>
-                                <input type="text" class="form-control input-lg" id="departmentId" value="">
+                            <label form="input_dept" class="control-label">Department</label>
+                            <div id="tbFormE">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Location</label>
-                            <div>
-                                <input type="text" class="form-control input-lg" id="locationId" value="">
+                            <label form="input_loc" class="control-label">Location</label>
+                            <div id="tbFormLocE">
                             </div>
                         </div>
                         <div class="form-group">
@@ -252,7 +262,7 @@
     </div>
         <!-- end of "page_home" PAGE -->
 
-    <div id="locations">
+    <div class="getLocations" id="locations">
         <div id="container">
             <div id="page_home" class="ninety">
                 <div class="row sticky-top">
@@ -461,7 +471,7 @@
         </div>
     </div>
 
-    <div id="departments">
+    <div class="getDepartments" id="departments">
         <div id="container">
             <div id="page_home" class="ninety">
                 <div class="row sticky-top">
@@ -596,18 +606,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">City</label>
-                            <div>
-                                <input type="text" class="form-control input-lg" id="cityy">
+                            <label class="control-label">Location</label>
+                            <div id="tbFormELoc">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">City ID</label>
-                            <div>
-                                <input type="text" class="form-control input-lg" id="locationID">
-                            </div>
-                        </div>
-
+                    </form>
                     </form>
                 </div>
                 <div class="modal-footer">
