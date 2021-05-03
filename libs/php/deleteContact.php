@@ -28,8 +28,8 @@
 
 	// $_POST used for development / debugging. Remember to cange to $_POST for production
 
-	$persoNo = $_POST['persoNo'];
-	$query = "DELETE FROM personnel WHERE id = $persoNo";
+	$id = $_POST['id'];
+	$query = "DELETE FROM personnel WHERE id = $id";
 
 	$result = $conn->query($query);
 	

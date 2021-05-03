@@ -37,7 +37,6 @@
 	$departmentID = $_POST['departmentID'];
 	$locationID = $_POST['locationID'];
 
-	//$query = "UPDATE `personnel` set `persoNo`=$persNo,`firstName`='$firstName',`lastName`='$lastName',`jobTitle`='$jobTitle',`email`='$email',`contactNo`='$contactNo',`departmentID`=$departmentID,`locationID`=$locationID WHERE id = $id";
 		$query = "UPDATE `personnel` set `persoNo`='$persNo',`firstName`='$firstName',`lastName`='$lastName',`jobTitle`='$jobTitle',`email`='$email',`contactNo`='$contactNo',`departmentID`=$departmentID,`locationID`=$locationID WHERE id = $id";
 
 
