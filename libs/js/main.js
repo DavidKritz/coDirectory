@@ -8,10 +8,11 @@ var locID;
 var trValue;
 var $i
 var $lo
-document.location.hash = "#contacts";
 
 $(document).ready(function () {
 	console.log('ready!');
+	document.location.hash = "#contacts";
+
 });
 
 $(window).on('load', function () {
@@ -25,24 +26,105 @@ $(window).on('load', function () {
 $(document).on('click', '#clickContact', function (e) {
 	e.preventDefault();
 	var $i = $(this).parents('tr').data('val');
-	var currentRow = $(this).closest("tr"); 
-	var col1 = currentRow.find("td:eq(4)").text();
-	console.log($i);
-	localStorage.setItem("storageName", $i);
+
+	$.ajax({
+		url: "libs/php/getContact.php",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			id: $i
+
+		},
+		success: function (result) {
+			console.log('in get contact');
+			console.log(result);
+			$('#contactID').val(result.data[0].id);
+			$('#perNo').val(result.data[0].persoNo);
+			$('#surname').val(result.data[0].lastName);
+			$('#firstname').val(result.data[0].firstName);
+			$('#title').val(result.data[0].jobTitle);
+			$('#departmentId').val(result.data[0].departmentID);
+			$('#locationId').val(result.data[0].locationID);
+			$('#email').val(result.data[0].email);
+			$('#contactNo').val(result.data[0].contactNo);
+
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			// your error code
+			console.log(errorThrown);
+			console.log(textStatus);
+			console.log(jqXHR);
+		}
+	});
+
 	$('#editContact').modal().show();
 });
 
 $(document).on('click', '#clickLoc', function (e) {
 	e.preventDefault();
 	var $i = $(this).parents('tr').data('val');
-	localStorage.setItem("storageName", $i);
+
+	$.ajax({
+		url: "libs/php/getLoc.php",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			id: $i
+
+		},
+		success: function (result) {
+			console.log(result);
+			$('#locID').val(result.data[0].id);
+			$('#streetNo').val(result.data[0].streetNo);
+			$('#street').val(result.data[0].street);
+			$('#city').val(result.data[0].city);
+			$('#state').val(result.data[0].state);
+			$('#country').val(result.data[0].country);
+			$('#zipCode').val(result.data[0].zipCode);
+
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			// your error code
+			console.log(errorThrown);
+			console.log(textStatus);
+			console.log(jqXHR);
+		}
+	});
+
 	$('#editLocation').modal().show();
 });
 
 $(document).on('click', '#clickDept', function (e) {
 	e.preventDefault();
 	var $i = $(this).parents('tr').data('val');
-	localStorage.setItem("storageName", $i);
+
+	$.ajax({
+		url: "libs/php/getDept.php",
+		type: 'POST',
+		dataType: 'json',
+		data: {
+			id: $i
+
+		},
+		success: function (result) {
+			console.log(result);
+			$('#deptID').val(result.data[0].id);
+			$('#dept').val(result.data[0].dept);
+			$('#costCenter').val(result.data[0].costCenter);
+			$('#billCode').val(result.data[0].billCode);
+			$('#city').val(result.data[0].location);
+			$('#locationID').val(result.data[0].locationID);
+
+
+		},
+		error: function (jqXHR, textStatus, errorThrown) {
+			// your error code
+			console.log(errorThrown);
+			console.log(textStatus);
+			console.log(jqXHR);
+		}
+	});
+
 	$('#editDepartment').modal().show();
 
 });
@@ -61,7 +143,7 @@ $('#addContact').on('shown.bs.modal', function () {
 		},
 		success: function (result) {
 			console.log(result);
-			tableData += "<select name='input_dep' id='input_dept' class='form-control input-lg'>";
+			tableData += "<select name='input_dep' id='input_deptA' class='form-control input-lg'>";
 			tableData += "<option value=''>-- Please select option --</option>";
 
 
@@ -92,7 +174,7 @@ $('#addContact').on('shown.bs.modal', function () {
 
 		},
 		success: function (result) {
-			tableData1 += "<select name='input_lo' id='input_loc' class='form-control input-lg'>";
+			tableData1 += "<select name='input_lo' id='input_locA' class='form-control input-lg'>";
 			tableData1 += "<option value=''>-- Please select option --</option>";
 
 
@@ -245,7 +327,8 @@ $('#editDepartment').on('shown.bs.modal', function () {
 // getContacts on Search button
 $('#getContacts').click(function (e) {
 	var contactOptions;
-	var $search = document.getElementById("searchC").value;
+	var $search = $('#searchC').get(0).value;
+	console.log($search);
 	var tableData = '';
 	$.ajax({
 		url: "libs/php/getContacts.php",
@@ -265,7 +348,7 @@ $('#getContacts').click(function (e) {
 					+ "<td  id='clickContact'>" + contact.firstName + "</td>"
 					+ "<td  id='clickContact'>" + contact.department + "</td>" 
 					+ "<td  id='clickContact'>" + contact.location + "</td></tr>";
-				$('#tbRow3').html(tableData);
+				$('.tbRow3').html(tableData);
 			});
 
 		},
@@ -281,7 +364,6 @@ $('#getContacts').click(function (e) {
 // getContacts on load
 $(window).on('load', function () {
 	console.log('in load get contacts');
-	var contactOptions;
 	var $search = '';
 	var tableData = '';
 	$.ajax({
@@ -302,7 +384,7 @@ $(window).on('load', function () {
 					+ "<td  id='clickContact'>" + contact.firstName + "</td>"
 					+ "<td  id='clickContact'>" + contact.department + "</td>"
 					+ "<td  id='clickContact'>" + contact.location + "</td></tr>";
-				$('#tbRow3').html(tableData);
+				$('.tbRow3').html(tableData);
 			});
 
 		},
@@ -316,58 +398,17 @@ $(window).on('load', function () {
 })
 
 
-// getContact onclick to Edit contact
-$('.getContact').on('shown.bs.modal', function () {
-	console.log('in get load click for edit');
-	//var $i = document.getElementById("tbRow").val;
-	//console.log($i);
-
-	//var $i = $('#tbRow').parents('tr').data('val');
-	var $i = $(this).parents('tr').data('val');
-
-	console.log($i);
-
-	$.ajax({
-		url: "libs/php/getContact.php",
-		type: 'POST',
-		dataType: 'json',
-		data: {
-			id: $i
-
-		},
-		success: function (result) {
-			console.log('in get contact');
-			console.log(result);
-			$('#perNo').val(result.data[0].persoNo);
-			$('#surname').val(result.data[0].lastName);
-			$('#firstname').val(result.data[0].firstName);
-			$('#title').val(result.data[0].jobTitle);
-			$('#departmentId').val(result.data[0].departmentID);
-			$('#locationId').val(result.data[0].locationID);
-			$('#email').val(result.data[0].email);
-			$('#contactNo').val(result.data[0].contactNo);
-
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			// your error code
-			console.log(errorThrown);
-			console.log(textStatus);
-			console.log(jqXHR);
-		}
-	});
-
-});
 
 $('.addContact').click( function (e) {
 	e.preventDefault();
-	$persoNo = document.getElementById("input_perNo").value; 
-	$firstName = document.getElementById("input_first").value; 
-	$lastName = document.getElementById("input_surname").value; 
-	$jobTitle = document.getElementById("input_title").value; 
-	$email = document.getElementById("input_email").value; 
-	$contactNo = document.getElementById("input_contact").value; 
-	$departmentID = document.getElementById("input_dept").value; 
-	$locationID = document.getElementById("input_loc").value; 
+	$persoNo = $("#input_perNo").get(0).value;
+	$firstName = $("#input_first").get(0).value;
+	$lastName = $("#input_surname").get(0).value;
+	$jobTitle = $("#input_title").get(0).value;
+	$email = $("#input_email").get(0).value;
+	$contactNo = $("#input_contact").get(0).value;
+	$departmentID = $("#input_deptA").get(0).value;
+	$locationID = $("#input_locA").get(0).value;
 	console.log($locationID);
 	console.log($departmentID);
 	console.log($locationID);
@@ -404,24 +445,21 @@ $('.addContact').click( function (e) {
 	});
 
 })
-//function editContact() {
 
 $('.editContact').on('click', function (e) {
 	e.preventDefault();
 	console.log('in edit contact');
-	console.log($i);
-	//$id = localStorage.getItem("storageName");
-	var $id = jQuery(this).parents('tr').data('val');
-
+	$id = $("#contactID").get(0).value;
+	$persNo = $("#perNo").get(0);
+	$firstName = $("#firstname").get(0);
+	$lastName = $("#surname").get(0);
+	$jobTitle = $("#title").get(0);
+	$email = $("#email").get(0);
+	$contactNo = $("#contactNo").get(0);
+	$departmentID = $("#departmentId").get(0);
+	$locationID = $("#locationId").get(0);
 	console.log($id);
-	$persNo = document.getElementById("perNo").value;
-	$firstName = document.getElementById("firstname").value;
-	$lastName = document.getElementById("surname").value;
-	$jobTitle = document.getElementById("title").value;
-	$email = document.getElementById("email").value;
-	$contactNo = document.getElementById("contactNo").value;
-	$departmentID = document.getElementById("departmentId").value;
-	$locationID = document.getElementById("locationId").value;
+
 
 	$.ajax({
 		url: "libs/php/editContact.php",
@@ -455,15 +493,15 @@ $('.editContact').on('click', function (e) {
 
 $('.delContact').on('click', function (e) {
 	e.preventDefault();
-	var $persNo = localStorage.getItem("storageName");
+	$id = $("#contactID").get(0).value;
 	console.log('in delete');
-	console.log($persNo);
+	console.log($id);
 	$.ajax({
 		url: "libs/php/deleteContact.php",
 		type: 'POST',
 		dataType: 'json',
 		data: {
-			persoNo: $persNo,
+			persoNo: $id,
 
 
 		},
@@ -484,7 +522,7 @@ $('.delContact').on('click', function (e) {
 // getDepartment on Search button
 $('#getDepartments').click(function (e) {
 	e.preventDefault();
-	var $search = document.getElementById("searchD").value;
+	var $search = $("#searchD").get(0).value;
 	var tableData;
 	$.ajax({
 		url: "libs/php/getDepartments.php",
@@ -504,7 +542,7 @@ $('#getDepartments').click(function (e) {
 					+ "<td  id='clickDept'>" + department.costCenter + "</td>"
 					+ "<td  id='clickDept'>" + department.billCode + "</td>"
 					+ "<td  id='clickDept'>" + department.location + "</td></tr>";
-				$('#tbRow2').html(tableData);
+				$('.tbRow2').html(tableData);
 			});
 
 		},
@@ -539,7 +577,7 @@ $(window).on('load', function () {
 					+ "<td  id='clickDept'>" + department.costCenter + "</td>"
 					+ "<td  id='clickDept'>" + department.billCode + "</td>"
 					+ "<td  id='clickDept'>" + department.location + "</td></tr>";
-				$('#tbRow2').html(tableData);
+				$('.tbRow2').html(tableData);
 			});
 
 		},
@@ -552,46 +590,15 @@ $(window).on('load', function () {
 	});
 });
 
-// getDepartment onclick to Edit contact
-$('.getDepartment').on('shown.bs.modal', function () {
-	//var $i = localStorage.getItem("storageName");
-	console.log($i);
-	$.ajax({
-		url: "libs/php/getDept.php",
-		type: 'POST',
-		dataType: 'json',
-		data: {
-			id: $i
-
-		},
-		success: function (result) {
-			console.log(result);
-			$('#deptID').val(result.data[0].id);
-			$('#dept').val(result.data[0].dept);
-			$('#costCenter').val(result.data[0].costCenter);
-			$('#billCode').val(result.data[0].billCode);
-			$('#city').val(result.data[0].location);
-			$('#locationID').val(result.data[0].locationID);
-
-
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			// your error code
-			console.log(errorThrown);
-			console.log(textStatus);
-			console.log(jqXHR);
-		}
-	});
-});
 
 
 $('.editDept').on('click', function (e) {
 	e.preventDefault();
-	$id = localStorage.getItem("storageName");
-	$dept = document.getElementById("dept").value;
-	$costC = document.getElementById("costCenter").value;
-	$billC = document.getElementById("billCode").value;
-	$locationID = document.getElementById("locationID").value;
+	$id = $("#deptID").get(0).value;
+	$dept = $("#dept").get(0).value;
+	$costC = $("#costCenter").get(0).value;
+	$billC = $("#billCode").get(0).value;
+	$locationID = $("#locationID").get(0).value;
 
 	$.ajax({
 		url: "libs/php/editDept.php",
@@ -624,7 +631,7 @@ $('.editDept').on('click', function (e) {
 
 $('.delDept').on('click', function (e) {
 	e.preventDefault();
-	$id = localStorage.getItem("storageName");
+	$id = $("#deptID").get(0).value;
 	console.log('in dept del');
 	console.log($id);
 	$.ajax({
@@ -663,10 +670,10 @@ $('.delDept').on('click', function (e) {
 
 $('.addDept').on('click', function (e) {
 		e.preventDefault();
-		$dept = document.getElementById("input_dept").value;
-		$costCenter = document.getElementById("input_costC").value;
-		$billCode = document.getElementById("input_billC").value;
-		$locationID = document.getElementById("input_dept_loc").value;
+	$dept = $("#input_dept").get(0).value;
+	$costCenter = $("#input_costC").get(0).value;
+	$billCode = $("#input_billC").get(0).value;
+	$locationID = $("#input_dept_loc").get(0).value;
 		console.log($dept);
 		console.log($costCenter);
 		console.log($billCode);
@@ -726,7 +733,7 @@ $(window).on('load', function () {
 					+ "<td  id='clickLoc'>" + location.state + "</td>"
 					+ "<td  id='clickLoc'>" + location.country + "</td>"
 					+ "<td  id='clickLoc'>" + location.zipCode + "</td></tr>";
-				$('#tbRow1').html(tableData);
+				$('.tbRow1').html(tableData);
 
 			});
 
@@ -742,7 +749,7 @@ $(window).on('load', function () {
 
 // getLocations on Search button
 $('#getLocations').click(function (e) {
-	var $search = document.getElementById("searchL").value;
+	var $search = $("#searchL").get(0).value;
 	var tableData;
 	$.ajax({
 		url: "libs/php/getLocations.php",
@@ -762,7 +769,7 @@ $('#getLocations').click(function (e) {
 					+ "<td  id='clickLoc'>" + location.state + "</td>"
 					+ "<td  id='clickLoc'>" + location.country + "</td>"
 					+ "<td  id='clickLoc'>" + location.zipCode + "</td></tr>";
-				$('#tbRow1').html(tableData);
+				$('.tbRow1').html(tableData);
 
 			});
 
@@ -777,48 +784,18 @@ $('#getLocations').click(function (e) {
 });
 
 
-// getLocation onclick to Edit location
-$('.getLocation').on('shown.bs.modal', function () {
-	var $i = localStorage.getItem("storageName");
 
-	$.ajax({
-		url: "libs/php/getLoc.php",
-		type: 'POST',
-		dataType: 'json',
-		data: {
-			id: $i
-
-		},
-		success: function (result) {
-			console.log(result);
-			$('#locID').val(result.data[0].id);
-			$('#streetNo').val(result.data[0].streetNo);
-			$('#street').val(result.data[0].street);
-			$('#city').val(result.data[0].city);
-			$('#state').val(result.data[0].state);
-			$('#country').val(result.data[0].country);
-			$('#zipCode').val(result.data[0].zipCode);
-
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			// your error code
-			console.log(errorThrown);
-			console.log(textStatus);
-			console.log(jqXHR);
-		}
-	});
-});
 
 $('.editLoc').on('click', function (e) {
 	e.preventDefault();
 	console.log('in edit location');
-	$id = localStorage.getItem("storageName");
-	$streetNo = document.getElementById("streetNo").value;
-	$street = document.getElementById("street").value;
-	$state = document.getElementById("state").value;
-	$city = document.getElementById("city").value;
-	$country = document.getElementById("country").value;
-	$zipCode = document.getElementById("zipCode").value;
+	$id = $("#locID").get(0).value;
+	$streetNo = $("#streetNo").get(0).value;
+	$street = $("#street").get(0).value;
+	$state = $("#state").get(0).value;
+	$city = $("#city").get(0).value;
+	$country = $("#country").get(0).value;
+	$zipCode = $("#zipCode").get(0).value;
 	console.log($id);
 
 	$.ajax({
@@ -854,7 +831,7 @@ $('.editLoc').on('click', function (e) {
 
 $('.delLoc').on('click', function (e) {
 	e.preventDefault();
-	$id = localStorage.getItem("storageName");
+	$id = $("#locID").get(0).value;
 	console.log('in delete');
 	console.log($id);
 	$.ajax({
@@ -892,12 +869,12 @@ $('.delLoc').on('click', function (e) {
 $('.addLoc').on('click', function (e) {
 	e.preventDefault();
 	console.log('in add loc');
-	$strNo = document.getElementById("input_streetNo").value;
-	$street = document.getElementById("input_street").value;
-	$city = document.getElementById("input_city").value;
-	$state = document.getElementById("input_state").value;
-	$country = document.getElementById("input_country").value;
-	$zipC = document.getElementById("input_zipCode").value;
+	$strNo = $("#input_streetNo").get(0).value;
+	$street = $("#input_street").get(0).value;
+	$city = $("#input_city").get(0).value;
+	$state = $("#input_state").get(0).value;
+	$country = $("#input_country").get(0).value;
+	$zipC = $("#input_zipCode").get(0).value;
 	console.log($strNo);
 
 	$.ajax({
