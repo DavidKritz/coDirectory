@@ -39,14 +39,11 @@ $(document).on('click', '#clickContact', function (e) {
 			console.log('in get contact');
 			console.log(result);
 			$('#contactID').val(result.data[0].id);
-			$('#perNo').val(result.data[0].persoNo);
 			$('#surname').val(result.data[0].lastName);
 			$('#firstname').val(result.data[0].firstName);
 			$('#title').val(result.data[0].jobTitle);
 			$('#departmentId').val(result.data[0].departmentID);
-			$('#locationId').val(result.data[0].locationID);
 			$('#email').val(result.data[0].email);
-			$('#contactNo').val(result.data[0].contactNo);
 
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -75,12 +72,7 @@ $(document).on('click', '#clickLoc', function (e) {
 		success: function (result) {
 			console.log(result);
 			$('#locID').val(result.data[0].id);
-			$('#streetNo').val(result.data[0].streetNo);
-			$('#street').val(result.data[0].street);
 			$('#city').val(result.data[0].city);
-			$('#state').val(result.data[0].state);
-			$('#country').val(result.data[0].country);
-			$('#zipCode').val(result.data[0].zipCode);
 
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -110,9 +102,6 @@ $(document).on('click', '#clickDept', function (e) {
 			console.log(result);
 			$('#deptID').val(result.data[0].id);
 			$('#dept').val(result.data[0].dept);
-			$('#costCenter').val(result.data[0].costCenter);
-			$('#billCode').val(result.data[0].billCode);
-			$('#city').val(result.data[0].location);
 			$('#locationID').val(result.data[0].locationID);
 
 
@@ -144,7 +133,7 @@ $('#addContact').on('shown.bs.modal', function () {
 		success: function (result) {
 			console.log(result);
 			tableData += "<select name='input_dep' id='input_deptA' class='form-control input-lg'>";
-			tableData += "<option value=''>-- Please select option --</option>";
+			tableData += "<option value='0'>-- Please select option --</option>";
 
 
 			$.each(result['data'], function (i, department) {
@@ -175,7 +164,7 @@ $('#addContact').on('shown.bs.modal', function () {
 		},
 		success: function (result) {
 			tableData1 += "<select name='input_lo' id='input_locA' class='form-control input-lg'>";
-			tableData1 += "<option value=''>-- Please select option --</option>";
+			tableData1 += "<option value='0'>-- Please select option --</option>";
 
 
 			$.each(result['data'], function (i, location) {
@@ -209,7 +198,7 @@ $('#editContact').on('shown.bs.modal', function () {
 		success: function (result) {
 			console.log(result);
 			tableData3 += "<select name='input_dep' id='input_dept' class='form-control input-lg'>";
-			tableData3 += "<option value=''>-- Please select option --</option>";
+			tableData3 += "<option value='0'>-- Please select option --</option>";
 
 
 			$.each(result['data'], function (i, department) {
@@ -240,7 +229,7 @@ $('#editContact').on('shown.bs.modal', function () {
 		},
 		success: function (result) {
 			tableData4 += "<select name='input_lo' id='input_loc' class='form-control input-lg'>";
-			tableData4 += "<option value=''>-- Please select option --</option>";
+			tableData4 += "<option value='0'>-- Please select option --</option>";
 
 
 			$.each(result['data'], function (i, location) {
@@ -273,7 +262,7 @@ $('#addDepartment').on('shown.bs.modal', function () {
 		},
 		success: function (result) {
 			tableData2 += "<select name='input_dept_loc' id='input_dept_loc' class='form-control input-lg'>";
-			tableData2 += "<option value=''>-- Please select option --</option>";
+			tableData2 += "<option value='0'>-- Please select option --</option>";
 
 
 			$.each(result['data'], function (i, location) {
@@ -305,7 +294,7 @@ $('#editDepartment').on('shown.bs.modal', function () {
 		},
 		success: function (result) {
 			tableData5 += "<select name='input_dept_loc' id='input_dept_loc' class='form-control input-lg'>";
-			tableData5 += "<option value=''>-- Please select option --</option>";
+			tableData5 += "<option value='0'>-- Please select option --</option>";
 
 
 			$.each(result['data'], function (i, location) {
@@ -342,9 +331,7 @@ $('#getContacts').click(function (e) {
 
 			$.each(result['data'], function (i, contact) {
 
-				tableData += "<tr id='tbRow' data-val='" + contact.id + "'><td id='clickContact'>"
-					+ contact.persoNo + "</td>" 
-					+ "<td  id='clickContact'>" + contact.lastName + "</td>"
+				tableData += "<tr id='tbRow' data-val='" + contact.id + "'><td  id='clickContact'>" + contact.lastName + "</td>"
 					+ "<td  id='clickContact'>" + contact.firstName + "</td>"
 					+ "<td  id='clickContact'>" + contact.department + "</td>" 
 					+ "<td  id='clickContact'>" + contact.location + "</td></tr>";
@@ -378,9 +365,7 @@ $(window).on('load', function () {
 
 			$.each(result['data'], function (i, contact) {
 
-				tableData += "<tr id='tbRow' data-val='" + contact.id + "'><td id='clickContact'>"
-					+ contact.persoNo + "</td>"
-					+ "<td  id='clickContact'>" + contact.lastName + "</td>"
+				tableData += "<tr id='tbRow' data-val='" + contact.id + "'><td  id='clickContact'>" + contact.lastName + "</td>"
 					+ "<td  id='clickContact'>" + contact.firstName + "</td>"
 					+ "<td  id='clickContact'>" + contact.department + "</td>"
 					+ "<td  id='clickContact'>" + contact.location + "</td></tr>";
@@ -401,31 +386,26 @@ $(window).on('load', function () {
 
 $('.addContact').click( function (e) {
 	e.preventDefault();
-	$persoNo = $("#input_perNo").get(0).value;
 	$firstName = $("#input_first").get(0).value;
 	$lastName = $("#input_surname").get(0).value;
 	$jobTitle = $("#input_title").get(0).value;
 	$email = $("#input_email").get(0).value;
-	$contactNo = $("#input_contact").get(0).value;
 	$departmentID = $("#input_deptA").get(0).value;
-	$locationID = $("#input_locA").get(0).value;
-	console.log($locationID);
+	console.log('Title');
+	console.log($jobTitle);
+	console.log('Department');
 	console.log($departmentID);
-	console.log($locationID);
 
 	$.ajax({
 		url: "libs/php/addContact.php",
 		type: 'POST',
 		dataType: 'json',
 		data: {
-			persoNo: $persoNo,
 			firstName: $firstName,
 			lastName: $lastName,
 			jobTitle: $jobTitle,
 			email: $email,
-			contactNo: $contactNo,
 			departmentID: $departmentID,
-			locationID: $locationID
 
 		},
 		success: function (result) {
@@ -450,16 +430,13 @@ $('.editContact').on('click', function (e) {
 	e.preventDefault();
 	console.log('in edit contact');
 	$id = $("#contactID").get(0).value;
-	$persNo = $("#perNo").get(0);
-	$firstName = $("#firstname").get(0);
-	$lastName = $("#surname").get(0);
-	$jobTitle = $("#title").get(0);
-	$email = $("#email").get(0);
-	$contactNo = $("#contactNo").get(0);
-	$departmentID = $("#departmentId").get(0);
-	$locationID = $("#locationId").get(0);
+	$firstName = $("#firstname").get(0).value;
+	$lastName = $("#surname").get(0).value;
+	$jobTitle = $("#title").get(0).value;
+	$email = $("#email").get(0).value;
+	$departmentID = $("#departmentId").get(0).value;
 	console.log($id);
-
+	console.log($departmentID);
 
 	$.ajax({
 		url: "libs/php/editContact.php",
@@ -467,14 +444,11 @@ $('.editContact').on('click', function (e) {
 		dataType: 'json',
 		data: {
 			contactID: $id,
-			persoNo: $persNo,
 			firstName: $firstName,
 			lastName: $lastName,
 			jobTitle: $jobTitle,
 			email: $email,
-			contactNo: $contactNo,
 			departmentID: $departmentID,
-			locationID: $locationID
 
 		},
 		success: function (result) {
@@ -538,10 +512,7 @@ $('#getDepartments').click(function (e) {
 
 				tableData += "<tr id='dpID' data-val='" + department.id + "'><td id='clickDept'>"
 					+ department.id + "</td>"
-					+ "<td  id='clickDept'>" + department.dept + "</td>"
-					+ "<td  id='clickDept'>" + department.costCenter + "</td>"
-					+ "<td  id='clickDept'>" + department.billCode + "</td>"
-					+ "<td  id='clickDept'>" + department.location + "</td></tr>";
+					+ "<td  id='clickDept'>" + department.dept + "</td></tr>";
 				$('.tbRow2').html(tableData);
 			});
 
@@ -573,10 +544,7 @@ $(window).on('load', function () {
 
 				tableData += "<tr id='dpID' data-val='" + department.id + "'><td id='clickDept'>"
 					+ department.id + "</td>"
-					+ "<td  id='clickDept'>" + department.dept + "</td>"
-					+ "<td  id='clickDept'>" + department.costCenter + "</td>"
-					+ "<td  id='clickDept'>" + department.billCode + "</td>"
-					+ "<td  id='clickDept'>" + department.location + "</td></tr>";
+					+ "<td  id='clickDept'>" + department.dept + "</td></tr>";
 				$('.tbRow2').html(tableData);
 			});
 
@@ -596,8 +564,6 @@ $('.editDept').on('click', function (e) {
 	e.preventDefault();
 	$id = $("#deptID").get(0).value;
 	$dept = $("#dept").get(0).value;
-	$costC = $("#costCenter").get(0).value;
-	$billC = $("#billCode").get(0).value;
 	$locationID = $("#locationID").get(0).value;
 
 	$.ajax({
@@ -607,8 +573,6 @@ $('.editDept').on('click', function (e) {
 		data: {
 			id: $id,
 			dept: $dept,
-			costC: $costC,
-			billC: $billC,
 			locationID: $locationID
 
 		},
@@ -671,12 +635,8 @@ $('.delDept').on('click', function (e) {
 $('.addDept').on('click', function (e) {
 		e.preventDefault();
 	$dept = $("#input_dept").get(0).value;
-	$costCenter = $("#input_costC").get(0).value;
-	$billCode = $("#input_billC").get(0).value;
 	$locationID = $("#input_dept_loc").get(0).value;
 		console.log($dept);
-		console.log($costCenter);
-		console.log($billCode);
 		console.log($locationID);
 
 
@@ -686,8 +646,6 @@ $('.addDept').on('click', function (e) {
 			dataType: 'json',
 			data: {
 				dept: $dept,
-				costCenter: $costCenter,
-				billCode: $billCode,
 				locationID: $locationID
 
 			},
@@ -729,10 +687,7 @@ $(window).on('load', function () {
 
 				tableData += "<tr id='locID' data-val='" + location.id + "'><td id='clickLoc'>"
 					+ location.id + "</td>"
-					+ "<td  id='clickLoc'>" + location.city + "</td>"
-					+ "<td  id='clickLoc'>" + location.state + "</td>"
-					+ "<td  id='clickLoc'>" + location.country + "</td>"
-					+ "<td  id='clickLoc'>" + location.zipCode + "</td></tr>";
+					+ "<td  id='clickLoc'>" + location.city + "</td></tr>";
 				$('.tbRow1').html(tableData);
 
 			});
@@ -765,10 +720,7 @@ $('#getLocations').click(function (e) {
 
 				tableData += "<tr id='locID' data-val='" + location.id + "'><td id='clickLoc'>"
 					+ location.id + "</td>"
-					+ "<td  id='clickLoc'>" + location.city + "</td>"
-					+ "<td  id='clickLoc'>" + location.state + "</td>"
-					+ "<td  id='clickLoc'>" + location.country + "</td>"
-					+ "<td  id='clickLoc'>" + location.zipCode + "</td></tr>";
+					+ "<td  id='clickLoc'>" + location.city + "</td></tr>";
 				$('.tbRow1').html(tableData);
 
 			});
@@ -790,12 +742,7 @@ $('.editLoc').on('click', function (e) {
 	e.preventDefault();
 	console.log('in edit location');
 	$id = $("#locID").get(0).value;
-	$streetNo = $("#streetNo").get(0).value;
-	$street = $("#street").get(0).value;
-	$state = $("#state").get(0).value;
 	$city = $("#city").get(0).value;
-	$country = $("#country").get(0).value;
-	$zipCode = $("#zipCode").get(0).value;
 	console.log($id);
 
 	$.ajax({
@@ -804,12 +751,7 @@ $('.editLoc').on('click', function (e) {
 		dataType: 'json',
 		data: {
 			id: $id,
-			streetNo: $streetNo,
-			street: $street,
-			state: $state,
 			city: $city,
-			country: $country,
-			zipCode: $zipCode
 
 		},
 		success: function (result) {
@@ -869,25 +811,14 @@ $('.delLoc').on('click', function (e) {
 $('.addLoc').on('click', function (e) {
 	e.preventDefault();
 	console.log('in add loc');
-	$strNo = $("#input_streetNo").get(0).value;
-	$street = $("#input_street").get(0).value;
 	$city = $("#input_city").get(0).value;
-	$state = $("#input_state").get(0).value;
-	$country = $("#input_country").get(0).value;
-	$zipC = $("#input_zipCode").get(0).value;
-	console.log($strNo);
 
 	$.ajax({
 		url: "libs/php/addLoc.php",
 		type: 'POST',
 		dataType: 'json',
 		data: {
-			streetNo: $strNo,
-			street: $street,
 			city: $city,
-			state: $state,
-			country: $country,
-			zipCode: $zipC
 
 		},
 		success: function (result) {
