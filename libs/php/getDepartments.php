@@ -28,9 +28,9 @@
 
 	$search = $_POST['searchD'];
 	if ($search) {
-		$query = "SELECT d.id, d.dept, d.costCenter, d.billCode, l.city as location FROM department d LEFT JOIN location l ON (l.id = d.locationID) WHERE d.dept = '$search' ORDER by d.id";
+		$query = "SELECT d.id, d.dept, l.city as location FROM department d LEFT JOIN location l ON (l.id = d.locationID) WHERE d.dept = '$search' ORDER by d.id";
 	} else {
-		$query = "SELECT d.id, d.dept, d.costCenter, d.billCode, l.city as location FROM department d LEFT JOIN location l ON (l.id = d.locationID) ORDER by d.id";
+		$query = "SELECT d.id, d.dept, l.city as location FROM department d LEFT JOIN location l ON (l.id = d.locationID) ORDER by d.id";
 	}
 
 	$result = $conn->query($query);

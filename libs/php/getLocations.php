@@ -29,9 +29,9 @@
 
 		$search = $_POST['searchL'];
 	if ($search) {
-		$query = "SELECT id, streetNo, street, city, state, country, zipCode FROM location  WHERE city = '$search' ORDER BY id";
+		$query = "SELECT id,  city FROM location  WHERE city = '$search' ORDER BY id";
 	} else {
-		$query = "SELECT id, streetNo, street, city, state, country, zipCode FROM location  ORDER BY id";
+		$query = "SELECT id,  city FROM location  ORDER BY id";
 	}
 
 	$result = $conn->query($query);

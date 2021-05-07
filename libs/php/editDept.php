@@ -29,11 +29,9 @@
 	//$id = $_POST['id'];
 	$id = 1;
 	$dept = $_POST['dept'];	
-	$costCenter = $_POST['costC'];	
-	$billCode = $_POST['billC'];	
 	$locationID = $_POST['locationID'];
 
-		$query = "UPDATE `department` SET `dept`='$dept',`costCenter`='$costCenter',`billCode`='$billCode',`locationID`=$locationID WHERE id = $id";
+		$query = "UPDATE `department` SET `dept`='$dept',`locationID`=$locationID WHERE id = $id";
 
 
 	$result = $conn->query($query);

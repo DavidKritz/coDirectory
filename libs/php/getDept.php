@@ -25,7 +25,7 @@
 		exit;
 
 	}	
-	$query = 'SELECT d.id, d.dept, d.costCenter, d.billCode, d.locationID, l.city as location FROM department d LEFT JOIN location l ON (l.id = d	.locationID) WHERE d.id = ' . $_POST['id'];
+	$query = 'SELECT d.id, d.dept, d.locationID, l.city as location FROM department d LEFT JOIN location l ON (l.id = d	.locationID) WHERE d.id = ' . $_POST['id'];
 
 	$result = $conn->query($query);
 	

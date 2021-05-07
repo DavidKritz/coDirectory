@@ -28,16 +28,13 @@
 
 	// $_POST used for development / debugging. Remember to cange to $_POST for production
 	$id = $_POST['contactID'];	
-	$persNo = $_POST['persoNo'];	
 	$firstName = $_POST['firstName'];	
 	$lastName = $_POST['lastName'];	
 	$jobTitle = $_POST['jobTitle'];
 	$email = $_POST['email'];
-	$contactNo = $_POST['contactNo'];
 	$departmentID = $_POST['departmentID'];
-	$locationID = $_POST['locationID'];
 
-		$query = "UPDATE `personnel` set `persoNo`='$persNo',`firstName`='$firstName',`lastName`='$lastName',`jobTitle`='$jobTitle',`email`='$email',`contactNo`='$contactNo',`departmentID`=$departmentID,`locationID`=$locationID WHERE id = $id";
+		$query = "UPDATE `personnel` set `firstName`='$firstName',`lastName`='$lastName',`jobTitle`='$jobTitle',`email`='$email',`departmentID`='$departmentID' WHERE id = $id";
 
 
 	$result = $conn->query($query);

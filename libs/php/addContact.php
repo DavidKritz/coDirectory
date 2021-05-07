@@ -28,16 +28,13 @@
 
 	// $_POST used for development / debugging. Remember to cange to $_POST for production
 
-	$persoNo = $_POST['persoNo'];
 	$firstName = $_POST['firstName'];
 	$lastName = $_POST['lastName'];	
 	$jobTitle = $_POST['jobTitle'];
 	$email = $_POST['email'];
-	$contactNo = $_POST['contactNo'];
 	$departmentID = $_POST['departmentID'];
-	$locationID = $_POST['locationID'];
 
-	$query = "INSERT INTO personnel (`persoNo`, `firstName`, `lastName`, `jobTitle`, `email`, `contactNo`, `departmentID`, `locationID`) VALUES('$persoNo','$firstName','$lastName','$jobTitle','$email','$contactNo','$departmentID','$locationID')";
+	$query = "INSERT INTO personnel ( `firstName`, `lastName`, `jobTitle`, `email`, `departmentID`) VALUES('$firstName','$lastName','$jobTitle','$email','$departmentID')";
 
 
 	$result = $conn->query($query);

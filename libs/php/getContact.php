@@ -25,7 +25,7 @@
 		exit;
 
 	}	
-	$query = 'SELECT p.id, p.persoNo, p.lastName, p.firstName, p.jobTitle, p.email, p.contactNo,p.departmentID, p.locationID, d.dept as department, l.city as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) WHERE p.id = ' . $_POST['id'];
+	$query = 'SELECT p.id,  p.lastName, p.firstName, p.jobTitle, p.email, p.departmentID, d.dept as department, l.city as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) WHERE p.id = ' . $_POST['id'];
 
 	$result = $conn->query($query);
 	

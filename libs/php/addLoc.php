@@ -28,14 +28,9 @@
 
 	// $_POST used for development / debugging. Remember to cange to $_POST for production
 
-	$streetNo = $_POST['streetNo'];
-	$street = $_POST['street'];
 	$city = $_POST['city'];
-	$state = $_POST['state'];	
-	$country = $_POST['country'];
-	$zipCode = $_POST['zipCode'];
 
-	$query = "INSERT INTO location (`streetNo`, `street`, `city`, `state`, `country`, `zipCode`) VALUES('$streetNo','$street','$city','$state','$country','$zipCode')";
+	$query = "INSERT INTO location (`city`) VALUES('$city')";
 
 	$result = $conn->query($query);
 	

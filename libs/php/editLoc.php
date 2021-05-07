@@ -29,15 +29,10 @@
 	// $_POST used for development / debugging. Remember to cange to $_POST for production
 	//$id = $_POST['id'];
 	$id = $_POST['id'];
-	$streetNo = $_POST['streetNo'];
-	$street = $_POST['street'];
 	$city = $_POST['city'];
-	$state = $_POST['state'];	
-	$country = $_POST['country'];
-	$zipCode = $_POST['zipCode'];
 
 		//$query = "UPDATE `location` SET `streetNo`='$streetNo',`street`='$street',`city`='$city',`state`='$state', `$country`='$country', `zipCode`='$zipCode' WHERE id = $id";
-		$query = "UPDATE `location` SET `streetNo`='$streetNo',`street`='$street',`city`='$city',`state`='$state',`country`='$country',`zipCode`='$zipCode' WHERE id = $id";
+		$query = "UPDATE `location` SET `city`='$city' WHERE id = $id";
 
 	$result = $conn->query($query);
 	

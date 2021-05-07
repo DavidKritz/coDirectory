@@ -29,11 +29,9 @@
 	// $_POST used for development / debugging. Remember to cange to $_POST for production
 
 	$dept = $_POST['dept'];
-	$costCenter = $_POST['costCenter'];
-	$billCode = $_POST['billCode'];	
 	$locationID = $_POST['locationID'];
 
-	$query = "INSERT INTO department (`dept`, `costCenter`, `billCode`, `locationID`) VALUES('$dept','$costCenter','$billCode','$locationID')";
+	$query = "INSERT INTO department (`dept`, `locationID`) VALUES('$dept','$locationID')";
 
 	$result = $conn->query($query);
 	

@@ -27,9 +27,11 @@
 	}	
 	$search = $_POST['searchC'];
 	if ($search) {
-	$query = "SELECT p.id, p.persoNo, p.lastName, p.firstName, p.jobTitle, p.email, p.contactNo, d.dept as department, l.city as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = p.locationID) WHERE p.lastName = '$search' ORDER BY p.lastName, p.firstName, d.dept, l.city";
+		$query = "SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.dept as department, l.city as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) WHERE p.lastName = '$search' ORDER BY p.lastName, p.firstName, d.dept, l.city";
+	//$query = "SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email,  d.dept as department, l.city as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = p.locationID) WHERE p.lastName = '$search' ORDER BY p.lastName, p.firstName, d.dept, l.city";
 	} else {
-		$query = "SELECT p.id, p.persoNo, p.lastName, p.firstName, p.jobTitle, p.email, p.contactNo, p.locationID, d.dept as department, l.city as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = p.locationID) ORDER BY p.lastName, p.firstName, d.dept, l.city";
+		$query = "SELECT p.id, p.lastName, p.firstName, p.jobTitle, p.email, d.dept as department, l.city as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = d.locationID) ORDER BY p.lastName, p.firstName, d.dept, l.city";
+		//$query = "SELECT p.id,  p.lastName, p.firstName, p.jobTitle, p.email,  d.dept as department, l.city as location FROM personnel p LEFT JOIN department d ON (d.id = p.departmentID) LEFT JOIN location l ON (l.id = p.locationID) ORDER BY p.lastName, p.firstName, d.dept, l.city";
 	}
 
 	$result = $conn->query($query);

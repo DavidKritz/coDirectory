@@ -26,7 +26,7 @@
 
 	}	
 
-	$query = 'SELECT id, streetNo, street, city, state, country, zipCode FROM location WHERE id = ' . $_POST['id'];
+	$query = 'SELECT id, city FROM location WHERE id = ' . $_POST['id'];
 
 	$result = $conn->query($query);
 	
