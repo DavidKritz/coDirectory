@@ -132,15 +132,12 @@ $('#addContact').on('shown.bs.modal', function () {
 		},
 		success: function (result) {
 			console.log(result);
-			tableData += "<select name='input_dep' id='input_deptA' class='form-control input-lg'>";
 			tableData += "<option value='0'>-- Please select option --</option>";
-
 
 			$.each(result['data'], function (i, department) {
 				tableData += "<option value='" + department.id + "'>" + department.dept + "</option>";
 			});
-			tableData += "</select>";
-			$('#tbForm').html(tableData);
+			$(".tbForm").append(tableData);
 
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -151,35 +148,6 @@ $('#addContact').on('shown.bs.modal', function () {
 		}
 	});
 
-	var $search = '';
-	var tableData1 = '';
-	console.log('in loc dropdown');
-	$.ajax({
-		url: "libs/php/getLocations.php",
-		type: 'POST',
-		dataType: 'json',
-		data: {
-			searchL: $search
-
-		},
-		success: function (result) {
-			tableData1 += "<select name='input_lo' id='input_locA' class='form-control input-lg'>";
-			tableData1 += "<option value='0'>-- Please select option --</option>";
-
-
-			$.each(result['data'], function (i, location) {
-				tableData1 += "<option value='" + location.id + "'>" + location.city + "</option>";
-			});
-			tableData1 += "</select>";
-			$('#tbFormLoc').html(tableData1);
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			// your error code
-			console.log(errorThrown);
-			console.log(textStatus);
-			console.log(jqXHR);
-		}
-	});
 });
 
 
@@ -197,7 +165,6 @@ $('#editContact').on('shown.bs.modal', function () {
 		},
 		success: function (result) {
 			console.log(result);
-			tableData3 += "<select name='input_dep' id='input_dept' class='form-control input-lg'>";
 			tableData3 += "<option value='0'>-- Please select option --</option>";
 
 
@@ -205,7 +172,8 @@ $('#editContact').on('shown.bs.modal', function () {
 				tableData3 += "<option value='" + department.id + "'>" + department.dept + "</option>";
 			});
 			tableData3 += "</select>";
-			$('#tbFormE').html(tableData3);
+			$('.tbFormE').append(tableData3);
+
 
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -216,35 +184,6 @@ $('#editContact').on('shown.bs.modal', function () {
 		}
 	});
 
-	var $search = '';
-	var tableData4 = '';
-	console.log('in loc dropdown');
-	$.ajax({
-		url: "libs/php/getLocations.php",
-		type: 'POST',
-		dataType: 'json',
-		data: {
-			searchL: $search
-
-		},
-		success: function (result) {
-			tableData4 += "<select name='input_lo' id='input_loc' class='form-control input-lg'>";
-			tableData4 += "<option value='0'>-- Please select option --</option>";
-
-
-			$.each(result['data'], function (i, location) {
-				tableData4 += "<option value='" + location.id + "'>" + location.city + "</option>";
-			});
-			tableData4 += "</select>";
-			$('#tbFormLocE').html(tableData4);
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			// your error code
-			console.log(errorThrown);
-			console.log(textStatus);
-			console.log(jqXHR);
-		}
-	});
 });
 
 
@@ -261,15 +200,13 @@ $('#addDepartment').on('shown.bs.modal', function () {
 
 		},
 		success: function (result) {
-			tableData2 += "<select name='input_dept_loc' id='input_dept_loc' class='form-control input-lg'>";
 			tableData2 += "<option value='0'>-- Please select option --</option>";
 
 
 			$.each(result['data'], function (i, location) {
 				tableData2 += "<option value='" + location.id + "'>" + location.city + "</option>";
 			});
-			tableData2 += "</select>";
-			$('#tbFormDLoc').html(tableData2);
+			$('.tbFormDLoc').append(tableData2);
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
 			// your error code
@@ -293,15 +230,12 @@ $('#editDepartment').on('shown.bs.modal', function () {
 
 		},
 		success: function (result) {
-			tableData5 += "<select name='input_dept_loc' id='input_dept_loc' class='form-control input-lg'>";
 			tableData5 += "<option value='0'>-- Please select option --</option>";
-
 
 			$.each(result['data'], function (i, location) {
 				tableData5 += "<option value='" + location.id + "'>" + location.city + "</option>";
 			});
-			tableData5 += "</select>";
-			$('#tbFormELoc').html(tableData5);
+			$('.tbFormELoc').append(tableData5);
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
 			// your error code
@@ -335,8 +269,9 @@ $('#getContacts').click(function (e) {
 					+ "<td  id='clickContact'>" + contact.firstName + "</td>"
 					+ "<td  id='clickContact'>" + contact.department + "</td>" 
 					+ "<td  id='clickContact'>" + contact.location + "</td></tr>";
-				$('.tbRow3').html(tableData);
 			});
+			$('.tbRow3').append(tableData);
+
 
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -369,8 +304,9 @@ $(window).on('load', function () {
 					+ "<td  id='clickContact'>" + contact.firstName + "</td>"
 					+ "<td  id='clickContact'>" + contact.department + "</td>"
 					+ "<td  id='clickContact'>" + contact.location + "</td></tr>";
-				$('.tbRow3').html(tableData);
 			});
+			$('.tbRow3').append(tableData);
+
 
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -513,8 +449,8 @@ $('#getDepartments').click(function (e) {
 				tableData += "<tr id='dpID' data-val='" + department.id + "'><td id='clickDept'>"
 					+ department.id + "</td>"
 					+ "<td  id='clickDept'>" + department.dept + "</td></tr>";
-				$('.tbRow2').html(tableData);
 			});
+			$('.tbRow2').append(tableData);
 
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -545,8 +481,8 @@ $(window).on('load', function () {
 				tableData += "<tr id='dpID' data-val='" + department.id + "'><td id='clickDept'>"
 					+ department.id + "</td>"
 					+ "<td  id='clickDept'>" + department.dept + "</td></tr>";
-				$('.tbRow2').html(tableData);
 			});
+			$('.tbRow2').append(tableData);
 
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -564,7 +500,7 @@ $('.editDept').on('click', function (e) {
 	e.preventDefault();
 	$id = $("#deptID").get(0).value;
 	$dept = $("#dept").get(0).value;
-	$locationID = $("#locationID").get(0).value;
+	$locationID = $("#dLoc").get(0).value;
 
 	$.ajax({
 		url: "libs/php/editDept.php",
@@ -688,9 +624,9 @@ $(window).on('load', function () {
 				tableData += "<tr id='locID' data-val='" + location.id + "'><td id='clickLoc'>"
 					+ location.id + "</td>"
 					+ "<td  id='clickLoc'>" + location.city + "</td></tr>";
-				$('.tbRow1').html(tableData);
 
 			});
+			$('.tbRow1').append(tableData);
 
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
@@ -721,9 +657,9 @@ $('#getLocations').click(function (e) {
 				tableData += "<tr id='locID' data-val='" + location.id + "'><td id='clickLoc'>"
 					+ location.id + "</td>"
 					+ "<td  id='clickLoc'>" + location.city + "</td></tr>";
-				$('.tbRow1').html(tableData);
 
 			});
+			$('.tbRow1').append(tableData);
 
 		},
 		error: function (jqXHR, textStatus, errorThrown) {
